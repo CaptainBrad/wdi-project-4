@@ -4,12 +4,14 @@ function placesIndex(req, res, next) {
   console.log('got here');
   Place
     .find()
+    .populate('createdBy')
     .exec()
     .then(places => res.json(places))
     .catch(next);
 }
 
 function placesCreate(req, res, next) {
+  req.body.createdBy = req.currentUser;
   Place
     .create(req.body)
     .then(place => res.status(201).json(place))
@@ -19,6 +21,7 @@ function placesCreate(req, res, next) {
 function placesShow(req, res, next) {
   Place
     .findById(req.params.id)
+    .populate('createdBy')
     .exec()
     .then((place) => {
       if(!place) return res.notFound();
@@ -30,6 +33,8 @@ function placesShow(req, res, next) {
 function placesUpdate(req, res, next) {
   Place
     .findById(req.params.id)
+    .populate('createdBy')
+
     .exec()
     .then((place) => {
       if(!place) return res.notFound();
@@ -43,6 +48,7 @@ function placesUpdate(req, res, next) {
 function placesDelete(req, res, next) {
   Place
     .findById(req.params.id)
+    .populate('createdBy') //potentially remove this
     .exec()
     .then((place) => {
       if(!place) return res.notFound();

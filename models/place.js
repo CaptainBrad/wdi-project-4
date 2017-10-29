@@ -4,7 +4,8 @@ const s3 = require('../lib/s3');
 const placeSchema = mongoose.Schema({
   name: { type: String, required: 'name is required' },
   subtitle: { type: String, required: 'subtitle is required' },
-  image: { type: String, required: 'Image is required' }
+  image: { type: String, required: 'Image is required' },
+  createdBy: { type: mongoose.Schema.ObjectId, ref: 'User'}
   // rating: { type: String, required: 'Category is required' }
 });
 placeSchema

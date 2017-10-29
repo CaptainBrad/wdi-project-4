@@ -30,20 +30,23 @@ class PlacesShow extends React.Component {
   }
 
   render() {
+    const authenticated = Auth.isAuthenticated();
+    const userId = Auth.getPayload() ? Auth.getPayload().userId : null;
+    const { image, createdBy, name, subtitle, id } = this.state.place;
     return (
       <div className="row">
         <div className="image-tile col-md-6">
-          <img src={this.state.place.image} className="img-responsive" />
+          <img src={image} className="img-responsive" />
         </div>
         <div className="col-md-6">
-          <h3>{this.state.place.name}</h3>
-          <h4>{this.state.place.subtitle}</h4>
+          <h3>{name}</h3>
+          <h4>{subtitle}</h4>
           <BackButton history={this.props.history} />
-          {Auth.isAuthenticated() && <Link to={`/places/${this.state.place.id}/edit`} className="standard-button">
+          {authenticated && createdBy && userId === createdBy.id && <Link to={`/places/${id}/edit`} className="standard-button">
             <i className="fa fa-pencil" aria-hidden="true"></i>Edit
           </Link>}
           {' '}
-          {Auth.isAuthenticated() && <button className="main-button" onClick={this.deletePlace}>
+          {authenticated && createdBy && userId === createdBy.id && <button className="main-button" onClick={this.deletePlace}>
             <i className="fa fa-trash" aria-hidden="true"></i>Delete
           </button>}
         </div>

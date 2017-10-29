@@ -9,7 +9,8 @@ class PlacesNew extends React.Component {
     place: {
       name: '',
       subtitle: '',
-      image: ''
+      image: '',
+      createdBy: Auth.getPayload().userId
     },
     errors: {}
   };

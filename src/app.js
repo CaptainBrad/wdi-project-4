@@ -17,7 +17,7 @@ class App extends React.Component {
         <div className="container">
           <header>
             <h1><Link to="/">Cheap Dates</Link></h1>
-            <h2>Cheap Dates</h2>
+            {/* <h2>Cheap Dates</h2> */}
             <Navbar />
             <hr />
 
