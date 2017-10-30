@@ -29,7 +29,7 @@ class PlacesIndex extends React.Component {
               <div key={place.id} className="image-tile col-md-4 col-sm-6 col-xs-12">
                 <Link to={`/places/${place.id}`}>
                   <h1>{place.name}</h1>
-                  <img src={place.image} className="img-responsive" />
+                  <img src={place.imageSRC} className="img-responsive" />
                 </Link>
               </div>
             );

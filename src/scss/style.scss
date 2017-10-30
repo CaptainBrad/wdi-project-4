@@ -133,6 +133,15 @@ main {
   padding-top: 50px;
 }
 
+.dropzone {
+  background-color: #E2E2E2;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 300px;
+  width: 300px;
+}
+
 @media screen and (max-width: 750px) {
   .fa-cutlery {
     display: none;

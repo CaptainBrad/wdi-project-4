@@ -11,6 +11,9 @@ function placesIndex(req, res, next) {
 }
 
 function placesCreate(req, res, next) {
+
+  if(req.file) req.body.image = req.file.filename;
+
   req.body.createdBy = req.currentUser;
   Place
     .create(req.body)
@@ -31,6 +34,9 @@ function placesShow(req, res, next) {
 }
 
 function placesUpdate(req, res, next) {
+
+  if(req.file) req.body.image = req.file.filename;
+
   Place
     .findById(req.params.id)
     .populate('createdBy')
@@ -58,10 +64,26 @@ function placesDelete(req, res, next) {
     .catch(next);
 }
 
+function addComment(req, res, next) {
+  Place
+    .findById(req.params.id)
+    .populate('createdBy')
+    .exec()
+    .then((place) => {
+      place.comments.push(req.body);
+      return place.save();
+    })
+    .then((place) => {
+      res.json(place);
+    })
+    .catch(next);
+}
+
 module.exports = {
   index: placesIndex,
   create: placesCreate,
   show: placesShow,
   update: placesUpdate,
-  delete: placesDelete
+  delete: placesDelete,
+  addComment: addComment
 };

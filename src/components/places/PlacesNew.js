@@ -9,10 +9,16 @@ class PlacesNew extends React.Component {
     place: {
       name: '',
       subtitle: '',
-      image: '',
+      base64: null,
+      imageSRC: '',
       createdBy: Auth.getPayload().userId
     },
-    errors: {}
+    errors: {
+      name: '',
+      subtitle: '',
+      imageSRC: '',
+      createdBy: ''
+    }
   };
 
   componentWillMount() {

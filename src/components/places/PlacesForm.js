@@ -1,6 +1,7 @@
 import React from 'react';
 
 import BackButton from '../utility/BackButton';
+import DragDrop from '../utility/DragDrop';
 
 function PlacesForm({ history, handleSubmit, handleChange, place, errors }) {
   return (
@@ -21,16 +22,13 @@ function PlacesForm({ history, handleSubmit, handleChange, place, errors }) {
           />
           {errors.name && <small className="has-error">{errors.name}</small>}
         </div>
-        <div className={errors.image ? 'form-group has-error' : 'form-group'}>
+        <div className="form-group">
           <label htmlFor="image">Image</label>
-          <input
-            type="text"
-            className="form-control"
-            id="image"
-            name="image"
-            value={place.image}
+          <DragDrop
             onChange={handleChange}
+            value={place.base64 || place.imageSRC}
           />
+
           {errors.image && <small className="has-error">{errors.image}</small>}
         </div>
         <div className={errors.subtitle ? 'form-group has-error' : 'form-group'}>
