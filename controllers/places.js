@@ -69,7 +69,7 @@ function addComment(req, res, next) {
 
   Place
     .findById(req.params.id)
-    .populate('createdBy')
+    .populate('createdBy comments.createdBy')
     .exec()
     .then((place) => {
       place.comments.push(req.body);
@@ -81,11 +81,29 @@ function addComment(req, res, next) {
     .catch(next);
 }
 
+function deleteComment(req, res, next) {
+  req.body.createdBy = req.currentUser;
+  Place
+    .findById(req.params.id)
+    .exec()
+    .then((place) => {
+      if(!place) return res.notFound();
+
+      const comment = place.comments.id(req.params.commentId);
+      comment.remove();
+
+      return place.save();
+    })
+    .then((place) => res.json(place))
+    .catch(next);
+}
+
 module.exports = {
   index: placesIndex,
   create: placesCreate,
   show: placesShow,
   update: placesUpdate,
   delete: placesDelete,
-  addComment: addComment
+  addComment: addComment,
+  deleteComment: deleteComment
 };

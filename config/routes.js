@@ -30,8 +30,8 @@ router.route('/oauth/facebook')
 router.route('/places/:id/comments')
   .post(secureRoute, places.addComment);
 
-// router.route('/places/:id/comments/:commentId')
-//   .delete(secureRoute, places.deleteComment);
+router.route('/places/:id/comments/:commentId')
+  .delete(secureRoute, places.deleteComment);
 
 router.all('/*', (req, res) => res.notFound());
 

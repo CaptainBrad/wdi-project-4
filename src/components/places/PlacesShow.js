@@ -14,7 +14,7 @@ class PlacesShow extends React.Component {
     errors: {text: ''}
   }
 
-  componentWillMount() {
+  getInfo = () => {
     Axios
       .get(`/api/places/${this.props.match.params.id}`)
       .then(res => this.setState({ place: res.data }))
@@ -23,6 +23,9 @@ class PlacesShow extends React.Component {
         console.log(err);
       });
   }
+  componentWillMount() {
+    this.getInfo();
+  }
 
   deletePlace = () => {
     Axios
@@ -30,6 +33,19 @@ class PlacesShow extends React.Component {
         headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
       })
       .then(() => this.props.history.push('/'))
+      .catch(err => console.log(err));
+  }
+
+  deleteComment = (commentId) => {
+    console.log('yes');
+    Axios
+      .delete(`/api/places/${this.props.match.params.id}/comments/${commentId}`, {
+        headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
+      })
+      .then(res => {
+        console.log(res);
+        this.getInfo();
+      })
       .catch(err => console.log(err));
   }
 
@@ -47,8 +63,11 @@ class PlacesShow extends React.Component {
       .catch(err => console.log(err.response.data));
   }
 
+  isOwner(comment) {
+    return Auth.getPayload() && Auth.getPayload().userId === comment.createdBy.id;
+  }
+
   render() {
-    console.log(this.state.place.comments);
     const authenticated = Auth.isAuthenticated();
     const userId = Auth.getPayload() ? Auth.getPayload().userId : null;
     const { imageSRC, createdBy, name, subtitle, id } = this.state.place;
@@ -81,7 +100,8 @@ class PlacesShow extends React.Component {
             {this.state.place.comments && this.state.place.comments.map(comment =>
               <li key={comment.id}>
                 <p>{comment.text}</p>
-                {comment.createdBy && <small>{comment.createdBy.username}</small>}
+                {authenticated && this.isOwner(comment) && <button onClick={() => this.deleteComment(comment.id)}>X</button>}
+                By: {comment.createdBy && <small>{comment.createdBy.username}</small>}
               </li>
             )}
           </ul>
