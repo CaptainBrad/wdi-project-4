@@ -5,12 +5,13 @@ import Auth from '../../lib/Auth';
 
 import BackButton from '../utility/BackButton';
 
-// import Comment from './Comments';
+import CommentForm from './CommentForm';
 
 class PlacesShow extends React.Component {
   state = {
     place: {},
-    comment: {}
+    newComment: '',
+    errors: {text: ''}
   }
 
   componentWillMount() {
@@ -32,61 +33,62 @@ class PlacesShow extends React.Component {
       .catch(err => console.log(err));
   }
 
-    addComment = () => {
-      Axios
-        .post(`/places/${this.props.match.params.id}/comments/`, this.state.comment, {
-          headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
-        })
-        .then((res) => this.setState({
-          place: res.data
-        }))
-        .catch(err => console.log(err));
-    }
+  handleChange = ({ target: { value } }) => {
+    this.setState({ newComment: value });
+  }
 
-    handleChange = ({ target: { name, value } }) => {
-      const comment = Object.assign({}, this.state.comment, { [name]: value });
-      this.setState({ comment });
-    }
+  handleSubmit = e => {
+    e.preventDefault();
+    Axios
+      .post(`/api/places/${this.props.match.params.id}/comments`, { text: this.state.newComment }, {
+        headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
+      })
+      .then(res => this.setState({ place: res.data, newComment: '' }))
+      .catch(err => console.log(err.response.data));
+  }
 
-    handleSubmit = (e) => {
-      e.preventDefault();
-    }
-
-    render() {
-      const authenticated = Auth.isAuthenticated();
-      const userId = Auth.getPayload() ? Auth.getPayload().userId : null;
-      const { imageSRC, createdBy, name, subtitle, id } = this.state.place;
-      return (
-        <div className="row">
-          <div className="image-tile col-md-6">
-            <img src={imageSRC} className="img-responsive" />
-          </div>
-          <div className="col-md-6">
-            <h3>{name}</h3>
-            <h4>{subtitle}</h4>
-
-            <div>
-              <button className="save-button">Save</button>
-            </div>
-            <BackButton history={this.props.history} />
-            {authenticated && createdBy && userId === createdBy.id && <Link to={`/places/${id}/edit`} className="standard-button">
-              <i className="fa fa-pencil" aria-hidden="true"></i>Edit
-            </Link>}
-            {' '}
-            {authenticated && createdBy && userId === createdBy.id && <button className="main-button" onClick={this.deletePlace}>
-              <i className="fa fa-trash" aria-hidden="true"></i>Delete
-            </button>}
-            {/* <Comment
-              comment={this.props.comment}
-              handleSubmit={this.handleSubmit}
-              handleChange={this.handleChange}
-              place={this.state.place}
-              errors={this.state.errors}
-            /> */}
-          </div>
+  render() {
+    console.log(this.state.place.comments);
+    const authenticated = Auth.isAuthenticated();
+    const userId = Auth.getPayload() ? Auth.getPayload().userId : null;
+    const { imageSRC, createdBy, name, subtitle, id } = this.state.place;
+    return (
+      <div className="row">
+        <div className="image-tile col-md-6">
+          <img src={imageSRC} className="img-responsive" />
         </div>
-      );
-    }
+        <div className="col-md-6">
+          <h3>{name}</h3>
+          <h4>{subtitle}</h4>
+
+
+          <BackButton history={this.props.history} />
+          {authenticated && createdBy && userId === createdBy.id && <div><Link to={`/places/${id}/edit`} className="standard-button">
+            <i className="fa fa-pencil" aria-hidden="true"></i>Edit
+          </Link>
+          {' '}
+          <button className="main-button" onClick={this.deletePlace}>
+            <i className="fa fa-trash" aria-hidden="true"></i>Delete
+          </button></div>}
+          {authenticated && <CommentForm
+            comment={this.state.newComment}
+            handleSubmit={this.handleSubmit}
+            handleChange={this.handleChange}
+            errors={this.state.errors}
+          />}
+          {!this.state.place.comments && <p>Loading comments...</p>}
+          <ul>
+            {this.state.place.comments && this.state.place.comments.map(comment =>
+              <li key={comment.id}>
+                <p>{comment.text}</p>
+                {comment.createdBy && <small>{comment.createdBy.username}</small>}
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default PlacesShow;

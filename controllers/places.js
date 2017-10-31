@@ -24,7 +24,7 @@ function placesCreate(req, res, next) {
 function placesShow(req, res, next) {
   Place
     .findById(req.params.id)
-    .populate('createdBy')
+    .populate('createdBy comments.createdBy')
     .exec()
     .then((place) => {
       if(!place) return res.notFound();
@@ -65,6 +65,8 @@ function placesDelete(req, res, next) {
 }
 
 function addComment(req, res, next) {
+  req.body.createdBy = req.currentUser;
+
   Place
     .findById(req.params.id)
     .populate('createdBy')

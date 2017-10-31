@@ -3,7 +3,7 @@ const s3 = require('../lib/s3');
 
 const commentSchema = new mongoose.Schema({
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User'},
-  text: String
+  text: { type: String }
 });
 
 const placeSchema = mongoose.Schema({
