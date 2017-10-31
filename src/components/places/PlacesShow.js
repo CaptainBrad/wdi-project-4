@@ -6,7 +6,7 @@ import Auth from '../../lib/Auth';
 import BackButton from '../utility/BackButton';
 
 import CommentForm from './CommentForm';
-
+import GoogleMap from '../utility/GoogleMap';
 class PlacesShow extends React.Component {
   state = {
     place: {},
@@ -68,9 +68,10 @@ class PlacesShow extends React.Component {
   }
 
   render() {
+    console.log(this.state.place);
     const authenticated = Auth.isAuthenticated();
     const userId = Auth.getPayload() ? Auth.getPayload().userId : null;
-    const { imageSRC, createdBy, name, subtitle, id } = this.state.place;
+    const { latLng, imageSRC, createdBy, name, subtitle, id } = this.state.place;
     return (
       <div className="row">
         <div className="image-tile col-md-6">
@@ -79,6 +80,7 @@ class PlacesShow extends React.Component {
         <div className="col-md-6">
           <h3>{name}</h3>
           <h4>{subtitle}</h4>
+          { this.state.place.latLng && <GoogleMap latLng={latLng}/> }
 
 
           <BackButton history={this.props.history} />

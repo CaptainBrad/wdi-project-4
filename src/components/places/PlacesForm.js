@@ -2,8 +2,19 @@ import React from 'react';
 
 import BackButton from '../utility/BackButton';
 import DragDrop from '../utility/DragDrop';
+import PlacesAutocomplete from 'react-places-autocomplete';
 
-function PlacesForm({ history, handleSubmit, handleChange, place, errors }) {
+function PlacesForm({ history, handleSubmit, handleChange, place, errors, handleAddress, address }) {
+  const inputProps = {
+    value: address,
+    onChange: handleAddress
+  };
+
+  const cssClasses = {
+    root: 'form-group',
+    input: 'form-control',
+    autocompleteContainer: 'my-autocomplete-container'
+  };
   return (
     <div className="row">
       <div className="page-banner col-md-12">
@@ -42,6 +53,11 @@ function PlacesForm({ history, handleSubmit, handleChange, place, errors }) {
             onChange={handleChange}
           />
           {errors.subtitle && <small className="has-error">{errors.subtitle}</small>}
+        </div>
+
+        <div className={errors.location ? 'has-error' : ''}>
+          <label htmlFor="address">Address</label>
+          <PlacesAutocomplete className="form-control" inputProps={inputProps} classNames={cssClasses}/>
         </div>
         <div>
           <button className="save-button">Save</button>

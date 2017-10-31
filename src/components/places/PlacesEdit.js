@@ -2,6 +2,8 @@ import React from 'react';
 import Axios from 'axios';
 import Auth from '../../lib/Auth';
 
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+
 import PlacesForm from './PlacesForm';
 
 class PlacesEdit extends React.Component {
@@ -9,7 +11,8 @@ class PlacesEdit extends React.Component {
     place: {
       name: '',
       subtitle: '',
-      image: ''
+      image: '',
+      location: {}
     },
     errors: {}
   };
@@ -25,9 +28,19 @@ class PlacesEdit extends React.Component {
     const place = Object.assign({}, this.state.place, { [name]: value });
     this.setState({ place });
   }
-
   handleSubmit = (e) => {
     e.preventDefault();
+
+    geocodeByAddress(this.state.address)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => {
+        const user = Object.assign({}, this.state.user, { location: latLng });
+        this.setState({ user }, this.updatePlace);
+      });
+  }
+  updatePlace = () => {
+
+
 
     Axios
       .put(`/api/places/${this.props.match.params.id}`, this.state.place, {
@@ -43,6 +56,8 @@ class PlacesEdit extends React.Component {
         history={this.props.history}
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
+        handleAddress={this.handleAddress}
+        address={this.state.address}
         place={this.state.place}
         errors={this.state.errors}
       />

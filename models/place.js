@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const s3 = require('../lib/s3');
 
+const coordinateSchema = new mongoose.Schema({
+  lat: Number,
+  lng: Number
+});
+
 const commentSchema = new mongoose.Schema({
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User'},
   text: { type: String }
@@ -11,7 +16,8 @@ const placeSchema = mongoose.Schema({
   subtitle: { type: String, required: 'subtitle is required' },
   image: { type: String, required: 'Image is required' },
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User'},
-  comments: [ commentSchema ]
+  comments: [ commentSchema ],
+  latLng: coordinateSchema
   // rating: { type: String, required: 'Category is required' }
 });
 placeSchema
