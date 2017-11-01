@@ -8,8 +8,17 @@ const coordinateSchema = new mongoose.Schema({
 
 const commentSchema = new mongoose.Schema({
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User'},
-  text: { type: String }
+  text: { type: String },
+  rating: { type: Number }
 });
+
+commentSchema.methods.getStarIcons = function() {
+  let stars = '';
+  for(let i = 0; i<Math.floor(this.rating); i++) {
+    stars += '<span class="star">&#128169;</span> ';
+  }
+  return stars;
+};
 
 const placeSchema = mongoose.Schema({
   name: { type: String, required: 'name is required' },
@@ -48,6 +57,26 @@ placeSchema.pre('remove', function removeImage(next) {
   }
   next();
 });
+
+placeSchema
+  .virtual('avgRating')
+  .get(function getAvgRating() {
+    if(this.comments.length === 0) return false;
+    const total = this.comments.reduce((sum, comment) => {
+      return sum + comment.rating;
+    }, 0);
+    const avg = total / this.comments.length;
+    return Math.round(avg*2)/2;
+  });
+
+placeSchema.methods.getStarIcons = function() {
+  let stars = '';
+  for(let i = 0; i<Math.floor(this.avgRating); i++) {
+    stars += '<span class="star">&#128169;</span> ';
+  }
+  if(this.avgRating % 1 > 0) stars += '<span class="star half">&#128169;</span>';
+  return stars;
+};
 
 
 

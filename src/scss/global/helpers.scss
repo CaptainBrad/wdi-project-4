@@ -1,0 +1,19 @@
+.image-tile {
+  margin-bottom: 30px;
+
+  img {
+    width: 100%;
+    border-radius: 2px;
+    padding: 4px;
+    background: #fafafa;
+  }
+}
+
+.dropzone {
+  background-color: #E2E2E2;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 300px;
+  width: 300px;
+}

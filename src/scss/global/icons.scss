@@ -1,0 +1,28 @@
+.fa-cutlery {
+  position: relative;
+  top: -55px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  text-align: center;
+  font-size: 60px;
+  color: #eee;
+  background: #fff;
+  padding: 0 30px;
+
+  @media screen and (max-width: 750px) {
+    display: none;
+  }
+}
+
+.star {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  line-height: 18px;
+  vertical-align: bottom;
+
+  &.half {
+    overflow: hidden;
+    width: 10px;
+  }
+}

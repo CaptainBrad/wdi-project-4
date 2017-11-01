@@ -1,0 +1,44 @@
+button, .main-button, .standard-button {
+  margin-bottom: 20px;
+  padding: 5px 10px;
+  color: #fff;
+  border-radius: 2px;
+  font-weight: 600;
+  font-size: 18px;
+  outline: none;
+  display: inline-block;
+
+  i {
+    margin-right: 5px;
+  }
+}
+
+.standard-button {
+  background: #ccc;
+  border: 1px solid lighten(#ccc, 10%);
+
+  &:hover, &:focus {
+    color: #fff;
+    background: darken(#ccc, 10%);
+  }
+}
+
+.main-button {
+  background: black;
+  border: 1px solid lighten($color-red, 10%);
+
+  &:hover, &:focus {
+    color: #fff;
+    background: darken($color-red, 10%);
+  }
+}
+
+.save-button {
+  background: $color-mid-green;
+  border: 1px solid lighten($color-mid-green, 10%);
+
+  &:hover, &:focus {
+    color: #fff;
+    background: darken($color-mid-green, 10%);
+  }
+}
