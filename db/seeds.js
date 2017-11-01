@@ -7,7 +7,10 @@ const Place      = require('../models/place');
 const placeData = [{
   name: 'Hackney Farm',
   subtitle: 'Totally free, just dont adopt an animal ',
+  address: '25 Hackney East London Area',
   image: 'http://www.growingcity.co.uk/wp-content/uploads/2012/02/IMG_09001.jpg',
+  budget: 5,
+  review: ' hmmmmmmm yesssss hmmmmmm',
   latLng: {
     lat: 51.557240,
     lng: -0.037280

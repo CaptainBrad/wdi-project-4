@@ -57,7 +57,7 @@ function PlacesForm({ history, handleSubmit, handleChange, place, errors, handle
 
         <div className={errors.location ? 'has-error' : ''}>
           <label htmlFor="address">Address</label>
-          <PlacesAutocomplete className="form-control" inputProps={inputProps} classNames={cssClasses}/>
+          <PlacesAutocomplete className="form-control" value={place.address} inputProps={inputProps} classNames={cssClasses}/>
         </div>
         <div>
           <button className="save-button">Save</button>

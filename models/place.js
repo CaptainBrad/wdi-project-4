@@ -23,10 +23,14 @@ commentSchema.methods.getStarIcons = function() {
 const placeSchema = mongoose.Schema({
   name: { type: String, required: 'name is required' },
   subtitle: { type: String, required: 'subtitle is required' },
+  // address: { type: String, required: 'address is required' },
   image: { type: String, required: 'Image is required' },
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User'},
   comments: [ commentSchema ],
-  latLng: coordinateSchema
+  latLng: coordinateSchema,
+  budget: { type: Number },
+  review: { type: String }
+
   // rating: { type: String, required: 'Category is required' }
 });
 placeSchema
