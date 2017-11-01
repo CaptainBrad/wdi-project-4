@@ -12,8 +12,9 @@ class PlacesEdit extends React.Component {
       name: '',
       subtitle: '',
       image: '',
-      location: {}
+      latLng: {}
     },
+    address: '',
     errors: {}
   };
 
@@ -34,8 +35,8 @@ class PlacesEdit extends React.Component {
     geocodeByAddress(this.state.address)
       .then(results => getLatLng(results[0]))
       .then(latLng => {
-        const user = Object.assign({}, this.state.user, { location: latLng });
-        this.setState({ user }, this.updatePlace);
+        const place = Object.assign({}, this.state.place, { latLng });
+        this.setState({ place }, this.updatePlace);
       });
   }
   updatePlace = () => {
@@ -49,6 +50,8 @@ class PlacesEdit extends React.Component {
       .then(res => this.props.history.push(`/places/${res.data.id}`))
       .catch(err => this.setState({ errors: err.response.data.errors }));
   }
+
+  handleAddress = (address) => this.setState({ address })
 
   render() {
     return (
