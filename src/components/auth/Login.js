@@ -38,7 +38,7 @@ class Login extends React.Component {
           handleSubmit={this.handleSubmit}
           error={this.state.error}
         />
-        <OAuthButton provider="facebook">Login with facebook</OAuthButton>
+        <OAuthButton provider="facebook">Login with Facebook</OAuthButton>
       </div>
     );
   }

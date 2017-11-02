@@ -36,10 +36,11 @@ function facebook(req, res, next) {
 
       return User.findOne({ $or: [{ facebookId: profile.facebookId }, { email: profile.email }] })
         .then(user => {
-        // if there's no user, create one
+          console.log(profile);
+          // if there's no user, create one
           if(!user) {
             user = new User({
-              username: profile.login
+              username: profile.name
             });
           }
           // set the githubId and email (if avalible) for the user
@@ -48,7 +49,7 @@ function facebook(req, res, next) {
           if(profile.email) user.email = profile.email;
 
           //save the user
-          return user.save();
+          return user.save((err) => console.log(err));
         });
     })
     .then(user => {
