@@ -5,6 +5,7 @@ import Axios from 'axios';
 import { Link } from 'react-router-dom';
 import Auth from '../../lib/Auth';
 import SearchBar from './SearchBar';
+import Rating from '../../lib/Rating';
 import _ from 'lodash';
 
 class PlacesIndex extends React.Component {
@@ -39,6 +40,7 @@ class PlacesIndex extends React.Component {
 
 
 
+
   render() {
     const { query } = this.state;
     const regex = new RegExp(query, 'i');
@@ -59,7 +61,9 @@ class PlacesIndex extends React.Component {
               <div key={place.id} className="image-tile col-md-4 col-sm-6 col-xs-12">
                 <Link to={`/places/${place.id}`}>
                   <h1>{place.name}</h1>
-                  <img src={place.imageSRC} className="img-responsive" />
+                  {place.avgRating && <p> Average Rating: {Rating.getStarIcons(place.avgRating)} </p> }
+                  {!place.avgRating && <p> Average Rating: 🦄</p>}
+                  <div className="index-image" style={{backgroundImage: `url(${place.imageSRC})`}}></div>
                 </Link>
               </div>
             );

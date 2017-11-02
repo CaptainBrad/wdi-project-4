@@ -8,12 +8,14 @@ import PlacesNew from '../places/PlacesNew';
 import PlacesEdit from '../places/PlacesEdit';
 import Login from '../auth/Login';
 import Register from '../auth/Register';
+import Home from '../static/Home';
 import NoRoute from './NoRoute';
 
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/" component={PlacesIndex} />
+      <Route exact path="/" component={Home} />
+      <Route exact path="/places" component={PlacesIndex} />
       <ProtectedRoute exact path="/places/new" component={PlacesNew} />
       <ProtectedRoute exact path="/places/:id/edit" component={PlacesEdit} />
       <Route exact path="/places/:id" component={PlacesShow} />

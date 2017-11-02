@@ -73,7 +73,7 @@ function addComment(req, res, next) {
     .exec()
     .then((place) => {
       place.comments.push(req.body);
-      return place.save();
+      return place.save((err) => console.log(err));
     })
     .then((place) => {
       res.json(place);

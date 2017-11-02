@@ -1,3 +1,49 @@
 .places-show {
-  
+
+}
+
+.comment-rating {
+  input[type="radio"] {
+    display: none;
+  }
+  label {
+    cursor: pointer;
+    opacity: 0.5;
+    margin-right: 10px;
+    font-size: 24px;
+    &.selected {
+      opacity: 1;
+    }
+  }
+}
+
+.comment-form {
+  textarea {
+    margin-bottom: 20px;
+    resize: none;
+    height: 150px;
+  }
+}
+
+.comments {
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    li {
+      background-color: lighten($brand, 45%);
+      border-radius: 3px;
+      margin-bottom: 10px;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      p {
+        margin-bottom: 5px;
+      }
+      button {
+        margin-bottom: 0;
+      }
+    }
+  }
 }

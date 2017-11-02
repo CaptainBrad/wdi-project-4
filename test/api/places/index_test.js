@@ -6,6 +6,7 @@ const placeData = [{
   name: 'Mongolian Beef',
   subtitle: 'beef.jpg',
   image: 'Dinner'
+  //update this 
 
 }];
 

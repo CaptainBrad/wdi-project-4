@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import Auth from '../../lib/Auth';
+import Rating from '../../lib/Rating';
 
 import BackButton from '../utility/BackButton';
 
@@ -15,7 +16,7 @@ class PlacesShow extends React.Component {
     // =====
     newComment: {
       text: '',
-      rating: 0
+      rating: 1
     },
     // ======
     errors: {text: ''}
@@ -79,63 +80,72 @@ class PlacesShow extends React.Component {
   isOwner(comment) {
     return Auth.getPayload() && Auth.getPayload().userId === comment.createdBy.id;
   }
-  getStarIcons = rating => {
-    console.log(rating);
-    const elements = [];
-
-    for(let i = 0; i < Math.floor(rating); i++) {
-      console.log('8======================D');
-      elements.push(<span key={i} className="star">💰</span>);
-    }
-    if(rating % 1 > 0) elements.push(<span key="A" className="star half">💰</span>);
-    console.log('EL', elements);
-    return elements;
-  }
 
   render() {
     console.log(this.state.place.avgRating);
     const authenticated = Auth.isAuthenticated();
     const userId = Auth.getPayload() ? Auth.getPayload().userId : null;
-    const { latLng, imageSRC, createdBy, name, subtitle, id } = this.state.place;
+    const { latLng, imageSRC, createdBy, name, subtitle, budget, addAdress, review, id } = this.state.place;
     return (
-      <div className="places-show row">
-        <div className="image-tile col-md-6">
-          <img src={imageSRC} className="img-responsive" />
-        </div>
-        <div className="col-md-6">
-          <h3>{name}</h3>
-          <h4>{subtitle}</h4>
-          {this.state.place.avgRating && <p> Average Rating: {this.getStarIcons(this.state.place.avgRating)} </p> }
-          { this.state.place.latLng && <GoogleMap latLng={latLng}/> }
-          {/* {this.state.place.getStarIcons()} */}
+      <div className="places-show">
+        <div className="row">
+          <div className="image-tile col-md-6">
+            <img src={imageSRC} className="img-responsive" />
+          </div>
+          <div className="col-md-6">
+            <h3>{name}</h3>
+            <h4>{subtitle}</h4>
+            <h4>{addAdress}</h4>
+            <h4>£{budget}</h4>
+            <p>{review}</p>
+            {this.state.place.avgRating && <p> Average Rating: {Rating.getStarIcons(this.state.place.avgRating)} </p> }
+
+            {/* {this.state.place.getStarIcons()} */}
 
 
-          <BackButton history={this.props.history} />
-          {authenticated && createdBy && userId === createdBy.id && <div><Link to={`/places/${id}/edit`} className="standard-button">
-            <i className="fa fa-pencil" aria-hidden="true"></i>Edit
-          </Link>
-          {' '}
-          <button className="main-button" onClick={this.deletePlace}>
-            <i className="fa fa-trash" aria-hidden="true"></i>Delete
-          </button></div>}
-          {authenticated && <CommentForm
-            comment={this.state.newComment}
-            handleSubmit={this.handleSubmit}
-            handleChange={this.handleChange}
-            errors={this.state.errors}
-          />}
-          {!this.state.place.comments && <p>Loading comments...</p>}
-          <ul>
-            {this.state.place.comments && this.state.place.comments.map(comment =>
-              <li key={comment.id}>
-                <p>{comment.text}</p>
-                {authenticated && this.isOwner(comment) && <button onClick={() => this.deleteComment(comment.id)}>X</button>}
-                By: {comment.createdBy && <small>{comment.createdBy.username}</small>}
-                <p>{this.getStarIcons(comment.rating)}</p>
-              </li>
-            )}
-          </ul>
+            <BackButton history={this.props.history} />
+            {authenticated && createdBy && userId === createdBy.id && <div><Link to={`/places/${id}/edit`} className="standard-button">
+              <i className="fa fa-pencil" aria-hidden="true"></i>Edit
+            </Link>
+            {' '}
+            <button className="main-button" onClick={this.deletePlace}>
+              <i className="fa fa-trash" aria-hidden="true"></i>Delete
+            </button></div>}
+          </div>
         </div>
+        <div className="row">
+          <div className="col-md-12">
+            { this.state.place.latLng && <GoogleMap latLng={latLng}/> }
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            {authenticated && <CommentForm
+              comment={this.state.newComment}
+              handleSubmit={this.handleSubmit}
+              handleChange={this.handleChange}
+              errors={this.state.errors}
+            />}
+          </div>
+          <div className="col-md-6">
+            <div className="comments">
+              {!this.state.place.comments && <p>Loading comments...</p>}
+              <ul>
+                {this.state.place.comments && this.state.place.comments.map(comment =>
+                  <li key={comment.id}>
+                    <div>
+                      {comment.createdBy && <p><strong>{comment.createdBy.username}:</strong></p>}
+                      <p>{comment.text}</p>
+                      <p>{Rating.getStarIcons(comment.rating)}</p>
+                    </div>
+                    {authenticated && this.isOwner(comment) && <button className="main-button" onClick={() => this.deleteComment(comment.id)}>X</button>}
+                  </li>
+                )}
+              </ul>
+            </div>
+          </div>
+        </div>
+
       </div>
     );
   }
