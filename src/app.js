@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from './components/utility/Routes';
 
-import Navbar from './components/utility/Navbar';
+import Navbar from './components/utility/NavBar';
 
 import 'bootstrap-css-only';
 // import 'font-awesome/css/font-awesome.css';
