@@ -94,6 +94,7 @@ class PlacesShow extends React.Component {
           </div>
           <div className="col-md-6">
             <h3>{name}</h3>
+            <h4>Created By: {createdBy && createdBy.username}</h4>
             <h4>{subtitle}</h4>
             <h4>{addAdress}</h4>
             <h4>£{budget}</h4>
