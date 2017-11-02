@@ -41,7 +41,7 @@ function Home() {
 
       <div className="bgimg-1">
         <div className="caption">
-          <span className="border">COOL!</span>
+          <span className="border">Yes...</span>
         </div>
       </div>
 
