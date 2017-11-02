@@ -39,7 +39,7 @@ function facebook(req, res, next) {
         // if there's no user, create one
           if(!user) {
             user = new User({
-              name: profile.login
+              username: profile.login
             });
           }
           // set the githubId and email (if avalible) for the user
