@@ -86,6 +86,23 @@ h3 {
   text-align: justify;
 }
 
+.bgimg-1 {
+@media screen and (max-width: 750px) {
+  margin-top: 50px;
+}
+}
+
+.caption span.border
+  {
+  @media screen and (max-width: 750px) {
+
+    padding: 10px;
+    font-size: 17px;
+    letter-spacing: 1px;
+  }
+  }
+
+
 /* Turn off parallax scrolling for tablets and phones */
 @media only screen and (max-device-width: 1024px) {
     .bgimg-1, .bgimg-2, .bgimg-3 {

@@ -28,7 +28,7 @@ const placeSchema = mongoose.Schema({
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User'},
   comments: [ commentSchema ],
   latLng: coordinateSchema,
-  budget: { type: Number },
+  budget: { type: Number  },
   review: { type: String }
 
   // rating: { type: String, required: 'Category is required' }

@@ -55,6 +55,32 @@ function PlacesForm({ history, handleSubmit, handleChange, place, errors, handle
           {errors.subtitle && <small className="has-error">{errors.subtitle}</small>}
         </div>
 
+        <div className={errors.budget ? 'form-group has-error' : 'form-group'}>
+          <label htmlFor="budget">budget(£)</label>
+          <input
+            type="Number"
+            className="form-control"
+            id="budget"
+            name="budget"
+            value={place.budget}
+            onChange={handleChange}
+          />
+          {errors.budget && <small className="has-error">{errors.budget}</small>}
+        </div>
+
+        <div className={errors.review ? 'form-group has-error' : 'form-group'}>
+          <label htmlFor="review">review</label>
+          <textarea
+            type="text"
+            className="form-control"
+            id="review"
+            name="review"
+            value={place.review}
+            onChange={handleChange}
+          />
+          {errors.review && <small className="has-error">{errors.review}</small>}
+        </div>
+
         <div className={errors.location ? 'has-error' : ''}>
           <label htmlFor="address">Address</label>
           <PlacesAutocomplete className="form-control" value={place.address} inputProps={inputProps} classNames={cssClasses}/>

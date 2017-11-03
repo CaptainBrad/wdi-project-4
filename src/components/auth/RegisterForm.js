@@ -1,7 +1,7 @@
 import React from 'react';
 
 const RegisterForm = ({ handleChange, handleSubmit, user, errors }) => {
-  console.log('EROrs', errors);
+  
   return (
     <form onSubmit={handleSubmit}>
       {/* <div className={errors.firstname ? 'form-group has-error' : 'form-group'}>

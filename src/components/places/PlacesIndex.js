@@ -62,7 +62,7 @@ class PlacesIndex extends React.Component {
                 <Link to={`/places/${place.id}`}>
                   <h1>{place.name}</h1>
                   {place.avgRating && <p> Average Rating: {Rating.getStarIcons(place.avgRating)} </p> }
-                  {!place.avgRating && <p> Average Rating: 🦄</p>}
+                  {!place.avgRating && <p> Average Rating: ❓</p>}
                   <div className="index-image" style={{backgroundImage: `url(${place.imageSRC})`}}></div>
                 </Link>
               </div>

@@ -46,3 +46,9 @@ button, .main-button, .standard-button {
 .navBtn {
   float: right;
 }
+
+.house {
+  @media screen and (max-width: 750px) {
+    display: none;
+  }
+}

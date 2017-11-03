@@ -19,7 +19,7 @@ class OAuthButton extends React.Component {
       // .then(() => this.props.history.push('/'));
       .then(() =>
         this.props.history.replace(this.props.location.pathname))
-      .then(() => this.props.history.push('/'));
+      .then(() => this.props.history.push('/places'));
   }
 
   setProvider = () => {

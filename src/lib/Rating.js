@@ -6,7 +6,7 @@ class Rating {
     const elements = [];
 
     for(let i = 0; i < Math.floor(rating); i++) {
-      console.log('8======================D');
+      console.log('yes');
       elements.push(<span key={i} className="star">💰</span>);
     }
     if(rating % 1 > 0) elements.push(<span key="A" className="star half">💰</span>);
