@@ -53,11 +53,11 @@ const placeData = [{
 // }, {
 }, {
   name: 'Nat Portrait Gallery',
-  subtitle: 'Do not get roped into a volentary donation, you dick!',
+  subtitle: 'Do not get roped into a volentary donation, you fool!',
   // addAddress: '25 Hackney East London Area',
   image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/London_NPG.JPG/1200px-London_NPG.JPG',
   budget: 0,
-  review: ' Personally, I found it super boring but it was raining outside and I looked cultured as fuck',
+  review: ' Personally, I found it super boring but it was raining outside and I looked really cultured',
   latLng: {
     lat: 51.5094236,
     lng: -0.1303103

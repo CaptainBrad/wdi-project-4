@@ -34,7 +34,7 @@ class PlacesIndex extends React.Component {
 
   componentDidMount(){
     Axios.get('/api/places')
-      .then(res => this.setState({ places: res.data},()=>console.log(res.data, '8======SearchBar======D')))
+      .then(res => this.setState({ places: res.data},()=>console.log(res.data, 'SearchBar')))
       .catch(err => console.log(err));
   }
 
